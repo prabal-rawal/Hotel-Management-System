@@ -6,12 +6,14 @@ cur = db.cursor()
 
 
 def menu():
+    print("-----------------------------------------------------------------------")
     print("***********************************************************************")
     print("***************************WELCOME TO HOTEL!***************************")
+    print("***********************************************************************")
     return display()
 
 def display():
-    print("***********************************************************************")
+    print("-----------------------------------------------------------------------")
     choice = int(input("1.Booking\n2.Customer data\n3.Bill Details\n4.Exit\nYour choice: "))
     if choice == 1:
 
@@ -38,7 +40,7 @@ def display():
         pass
 
 def data():
-    print("***********************************************************************")
+    print("-----------------------------------------------------------------------")
     cid = int(input("Enter the customer ID to see their data: "))
     query = "select* from customer_data where id=('{}')".format(cid)
     cur.execute(query)
@@ -48,7 +50,7 @@ def data():
     return display()
 
 def bill_data():
-    print("***********************************************************************")
+    print("-----------------------------------------------------------------------")
     cid = int(input("Enter the customer ID to see their data: "))
     query = "select* from bill where id=('{}')".format(cid)
     cur.execute(query)
@@ -58,7 +60,7 @@ def bill_data():
     return display()
 
 def booking():
-    print("***********************************************************************")
+    print("-----------------------------------------------------------------------")
     choice2 = int(input("1.New User\n2.Registered user\n3.Previous menue\nYour choice: "))
 
     if choice2 == 1:
@@ -93,7 +95,7 @@ def new_user():
 
 def registered_user():
     try:
-        print("***********************************************************************")
+        print("-----------------------------------------------------------------------")
         cid = int(input("Please enter your customer ID: "))
         bill = int(input("Enter the bill no.: "))
         cin = input("Check-in date(dd-mm-yyy):")
