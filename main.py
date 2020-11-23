@@ -41,27 +41,35 @@ def display():
 
 def data():
     print("-----------------------------------------------------------------------")
+    a = input("Press k to return to previous menu")
+    if a =="k":
+        return display()
     cid = int(input("Enter the customer ID to see their data: "))
     query = "select* from customer_data where id=('{}')".format(cid)
     cur.execute(query)
     records = cur.fetchall()
     for x in records:
         print(x)
-    return display()
+    return data()
+
 
 def bill_data():
     print("-----------------------------------------------------------------------")
+    a = input("Press k to return to previous menu")
+    if a =="k":
+        return display()
     cid = int(input("Enter the customer ID to see their data: "))
     query = "select* from bill where id=('{}')".format(cid)
     cur.execute(query)
     records = cur.fetchall()
     for x in records:
         print(x)
-    return display()
+    bill_data()
+
 
 def booking():
     print("-----------------------------------------------------------------------")
-    choice2 = int(input("1.New User\n2.Registered user\n3.Previous menue\nYour choice: "))
+    choice2 = int(input("1.New customer\n2.Registered customer\n3.Previous menue\nYour choice: "))
 
     if choice2 == 1:
         return new_user()
@@ -86,8 +94,8 @@ def new_user():
             cur.execute(query)
             db.commit()
 
-            print("User registered sucessfully!!")
-            booking()
+            print("Customer registered sucessfully!!")
+            return registered_user()
         else:
             return booking()
     except:
@@ -100,6 +108,7 @@ def registered_user():
         bill = int(input("Enter the bill no.: "))
         cin = input("Check-in date(dd-mm-yyy):")
         out = input("Check-out date(dd-mm-yyy):")
+        nom = int(input("Enter the number of days: "))
         nos = int(input("Enter the number of rooms: "))
         room = int(input("SELECT THE ROOM TYPE:\n1.Deluxe\n2.Superor\n3.Executive\nYour Choice: "))
         if room == 1:
@@ -111,11 +120,11 @@ def registered_user():
         elif room == 3:
             r1 = "Executive"
             t = 2500
-        total = nos * t
+        total = nos * t *nom
         print("Total Bill: ", total)
         confirm = input(("Do you want to confirm(y/n): "))
         if confirm == "y":
-            query = "insert into bill values ('{}','{}','{}','{}','{}','{}','{}')".format(bill, cid, cin, out, nos, r1,
+            query = "insert into bill values ('{}','{}','{}','{}','{}','{}','{}')".format(bill, cid, cin, out,nom, nos, r1,
                                                                                            t)
             cur.execute(query)
             db.commit()
