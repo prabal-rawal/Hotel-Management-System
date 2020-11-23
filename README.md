@@ -6,7 +6,7 @@
 * pip  install myql.connector
 
 ### How to use:
-* Run config.py
+* first run database-config.py and then run tables-config.py
 * Run main.py
 
 ###### Please do suggest improvement and problems in the code by creating an issue.
