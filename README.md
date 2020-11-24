@@ -1,6 +1,7 @@
 ## Note:
 ### Remember to change the hostname,user and passwd in config.py and main,py acc to your mysql server.
 ## Requirements
+* python3.0 or higher
 * mysql.connector
 ## Installation
 * pip  install myql.connector
