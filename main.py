@@ -1,4 +1,6 @@
 import mysql.connector
+from datetime import datetime
+import getpass
 
 db = mysql.connector.connect(host = "localhost",user = "root",passwd = "root",database = "HOTEL_MANAGEMENT")
 
@@ -7,14 +9,12 @@ cur = db.cursor()
 
 def menu():
     print("-----------------------------------------------------------------------")
-    print("***********************************************************************")
     print("***************************WELCOME TO HOTEL!***************************")
-    print("***********************************************************************")
     return display()
 
 def display():
     print("-----------------------------------------------------------------------")
-    choice = int(input("1.Booking\n2.Customer data\n3.Bill Details\n4.Exit\nYour choice: "))
+    choice = int(input(" \n1.Booking\n2.Customer data\n3.Bill Details\n4.Logs\n5.Exit\n \nYour choice: "))
     if choice == 1:
 
         try:
@@ -36,12 +36,15 @@ def display():
         except:
             print("error1")
 
-    elif choice == 4:
+    elif choice ==4:
+        return get_logs()
+
+    elif choice == 5:
         pass
 
 def data():
     print("-----------------------------------------------------------------------")
-    a = input("Press k to return to previous menu")
+    a = input("Press k to return to previous menu or press Enter to continue: ")
     if a =="k":
         return display()
     cid = int(input("Enter the customer ID to see their data: "))
@@ -52,10 +55,9 @@ def data():
         print(x)
     return data()
 
-
 def bill_data():
     print("-----------------------------------------------------------------------")
-    a = input("Press k to return to previous menu")
+    a = input("Press k to return to previous menu or press Enter to continue: ")
     if a =="k":
         return display()
     cid = int(input("Enter the customer ID to see their data: "))
@@ -66,10 +68,10 @@ def bill_data():
         print(x)
     bill_data()
 
-
 def booking():
     print("-----------------------------------------------------------------------")
-    choice2 = int(input("1.New customer\n2.Registered customer\n3.Previous menue\nYour choice: "))
+    choice2 = int(input("\n1.New customer\n2.Registered customer\n3.Previous menue\n \nYour choice:  "))
+    print("-----------------------------------------------------------------------")
 
     if choice2 == 1:
         return new_user()
@@ -95,7 +97,7 @@ def new_user():
             db.commit()
 
             print("Customer registered sucessfully!!")
-            return registered_user()
+            return booking()
         else:
             return booking()
     except:
@@ -136,10 +138,20 @@ def registered_user():
     except:
         print("error2")
 
+def log():
+    myFile = open('Log.txt', 'a')
+    x = (datetime.now())
+    z = ('\nAccessed by admin on '+str(x))
+    myFile.write(z)
 
+def get_logs():
+    f = open("Log.txt", "r")
+    print(f.read())
+    return display()
 
+log()
 
-menu()
-
-
-
+try:
+    menu()
+except:
+    print("Error in menu")
